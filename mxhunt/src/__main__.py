@@ -2,7 +2,6 @@ import argparse
 import re
 import asyncio
 import itertools
-from typing import List, Tuple
 import json
 from rich.console import Console
 from rich.table import Table
@@ -10,6 +9,7 @@ from rich.status import Status
 from mxhunt.lib.throttledclientsession import ThrottledClientSession
 
 console = Console()
+
 
 class Checker:
     def __init__(self, session, status):
@@ -56,32 +56,41 @@ class Checker:
                 # Check if this is "the initial" domain (tenantname)
                 if domain.lower().endswith(".onmicrosoft.com"):
                     self.tenantnames.append(domain.split(".")[0])
-                    
+
             if domains:
                 self.domains.extend(domains)
                 # TODO: Complete this with the MX lookup and adding it to the report. Get results how?
-                tasks = await asyncio.gather(*[self.get_mx(domain) for domain in domains])
-                
-                self.report.append({'initial_domain': initial_domain, 'tenant_domains': []})
+                tasks = await asyncio.gather(
+                    *[self.get_mx(domain) for domain in domains]
+                )
+
+                self.report.append(
+                    {"initial_domain": initial_domain, "tenant_domains": []}
+                )
                 for domain, result in zip(domains, tasks):
-                    self.report[-1]['tenant_domains'].append({'domain': domain, 'records': result})
+                    self.report[-1]["tenant_domains"].append(
+                        {"domain": domain, "records": result}
+                    )
         return domains
 
     async def get_mx(self, tenant_domain):
         try:
             records = []
             self.status.update(f"Checking MX records for {tenant_domain}")
-            async with self.session.get(f"https://dns.google/resolve?name={tenant_domain}&type=MX") as response:
+            async with self.session.get(
+                f"https://dns.google/resolve?name={tenant_domain}&type=MX"
+            ) as response:
                 json_response = await response.json()
-                # 0 netorg3059382.mail.protection.outlook.com.
-                # 0 netorg424892.mail.protection.outlook.com.
-                # 10 y12fcu-mail-onmicrosoft-com.mail.protection.outlook.com.
-                # get the name, data from the answer array
                 for record in json_response["Answer"]:
                     self.mx_records.append(record["data"].split()[1])
-                    records.append(dict(priority=record["data"].split()[0], mx=record["data"].split()[1]))
+                    records.append(
+                        dict(
+                            priority=record["data"].split()[0],
+                            mx=record["data"].split()[1],
+                        )
+                    )
                 return records
-                
+
         except:
             return None
 
@@ -91,23 +100,35 @@ class Checker:
         for record in sorted(set(self.mx_records)):
             table.add_row(record[:-1])
         console.print(table)
-        
-        
-        # remove the trailing dot
-        # return list(sorted(set([record[:-1] for record in self.mx_records])))
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', '--rate', help='Rate limit of concurrent connections (default: 10)', default=10, type=int)
-    parser.add_argument('-q', '--quiet', help='Quiet mode, do not output mail servers', action='store_true')
-    input = parser.add_argument_group(title='Input Options')
+    parser.add_argument(
+        "-r",
+        "--rate",
+        help="Rate limit of concurrent connections (default: 10)",
+        default=10,
+        type=int,
+    )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        help="Quiet mode, do not output mail servers",
+        action="store_true",
+    )
+    input = parser.add_argument_group(title="Input Options")
     group = input.add_mutually_exclusive_group(required=True)
-    group.add_argument('-d', '--domain', help='Domain to check')
-    group.add_argument('-f', '--file', help='A file with domains to check')
-    output = parser.add_argument_group(title='Output Options')
-    output.add_argument('-o', '--output', help='Report output base name (default: mx_report)', default='mx_report')
+    group.add_argument("-d", "--domain", help="Domain to check")
+    group.add_argument("-f", "--file", help="A file with domains to check")
+    output = parser.add_argument_group(title="Output Options")
+    output.add_argument(
+        "-o",
+        "--output",
+        help="Report output base name (default: mx_report)",
+        default="mx_report",
+    )
 
-    
     return parser.parse_args()
 
 
@@ -118,36 +139,37 @@ async def main():
     domain = args.domain
     output_base = args.output
     quiet = args.quiet
-    
+
     with Status(f"Checking domain{'' if domain else 's'}") as status:
         async with ThrottledClientSession(rate_limit=rate) as session:
             checker = Checker(session, status)
-            
+
             if domain:
                 msol_domains = await checker.msoldomains(domain)
-            
+
             else:
-                with open(file) as f: 
+                with open(file) as f:
                     domains = f.read().splitlines()
-                
-                tasks = await asyncio.gather(*[checker.msoldomains(domain) for domain in domains])
-                
+
+                tasks = await asyncio.gather(
+                    *[checker.msoldomains(domain) for domain in domains]
+                )
+
                 merged_domains = list(itertools.chain(*tasks))
                 msol_domains = sorted(set(merged_domains))
-                
 
             status.stop()
             console.print(f"[cyan]Writing report to {output_base}.json[/cyan]")
-            with open(f'{output_base}.json', 'w') as f:
+            with open(f"{output_base}.json", "w") as f:
                 json.dump(checker.report, f, indent=4)
-                
+
             if not quiet:
                 checker.print_mx_records()
+
 
 def run():
     asyncio.run(main())
 
+
 if __name__ == "__main__":
     run()
-    
-    

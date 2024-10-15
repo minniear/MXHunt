@@ -1,121 +1,516 @@
 [
     {
-        "initial_domain": "7insurance.com",
+        "initial_domain": "amazon.com",
         "tenant_domains": [
             {
-                "domain": "7insurance.com",
+                "domain": "amazoneur.onmicrosoft.com",
                 "records": [
                     {
-                        "priority": "20",
-                        "mx": "mx2-us1.ppe-hosted.com."
-                    },
+                        "priority": "0",
+                        "mx": "amazoneur-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonbra.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonbra-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.com.tr",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonstudios.com",
+                "records": [
                     {
                         "priority": "10",
-                        "mx": "mx1-us1.ppe-hosted.com."
+                        "mx": "amazon-smtp.amazon.com."
                     }
                 ]
             },
             {
-                "domain": "NETORG3059382.onmicrosoft.com",
+                "domain": "amazonnor.onmicrosoft.com",
                 "records": [
                     {
                         "priority": "0",
-                        "mx": "netorg3059382.mail.protection.outlook.com."
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "initial_domain": "CUINSTN.COM",
-        "tenant_domains": [
-            {
-                "domain": "NETORG424892.onmicrosoft.com",
-                "records": [
-                    {
-                        "priority": "0",
-                        "mx": "netorg424892.mail.protection.outlook.com."
+                        "mx": "amazonnor-onmicrosoft-com.mail.protection.outlook.com."
                     }
                 ]
             },
             {
-                "domain": "cuinstn.com",
+                "domain": "amazon.my",
                 "records": [
                     {
                         "priority": "0",
-                        "mx": "cuinstn-com.mail.protection.outlook.com."
+                        "mx": "amazon-smtp.amazon.com."
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "initial_domain": "CUSET.ORG",
-        "tenant_domains": [
+            },
             {
-                "domain": "cuset.org",
+                "domain": "amazon.sa",
                 "records": [
-                    {
-                        "priority": "20",
-                        "mx": "mxb-00543e01.gslb.pphosted.com."
-                    },
                     {
                         "priority": "10",
-                        "mx": "mxa-00543e01.gslb.pphosted.com."
+                        "mx": "amazon-smtp.amazon.com."
                     }
                 ]
             },
             {
-                "domain": "NETORG13607108.onmicrosoft.com",
+                "domain": "goodreads.com",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "a2z.com",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "alexa.com",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.lu",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.fi",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonare.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonare-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.cl",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.cz",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.fr",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.com.au",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonindi.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonindi-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazondeu.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazondeu-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazoncan.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazoncan-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.co.th",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.pt",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.ro",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.it",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "ant.amazon.com",
                 "records": null
-            }
-        ]
-    },
-    {
-        "initial_domain": "Y12FCU.ORG",
-        "tenant_domains": [
+            },
             {
-                "domain": "Y12fcu.onmicrosoft.com",
+                "domain": "a100dco.com",
                 "records": [
                     {
-                        "priority": "0",
-                        "mx": "y12fcu.mail.protection.outlook.com."
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
                     }
                 ]
             },
             {
-                "domain": "Y12fcu.mail.onmicrosoft.com",
+                "domain": "amazon.ch",
                 "records": [
                     {
                         "priority": "10",
-                        "mx": "y12fcu-mail-onmicrosoft-com.mail.protection.outlook.com."
+                        "mx": "amazon-smtp.amazon.com."
                     }
                 ]
             },
             {
-                "domain": "y12fcu.org",
+                "domain": "amazon.mail.onmicrosoft.com",
                 "records": [
                     {
                         "priority": "10",
-                        "mx": "mxb-00543e01.gslb.pphosted.com."
-                    },
-                    {
-                        "priority": "10",
-                        "mx": "mxa-00543e01.gslb.pphosted.com."
+                        "mx": "amazon-mail-onmicrosoft-com.mail.protection.outlook.com."
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "initial_domain": "y12fcugives.org",
-        "tenant_domains": [
+            },
             {
-                "domain": "NETORGFT13538569.onmicrosoft.com",
+                "domain": "amazon.com.be",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.ph",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.co.za",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.in",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.com.vn",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonaus.onmicrosoft.com",
                 "records": [
                     {
                         "priority": "0",
-                        "mx": "netorgft13538569.mail.protection.outlook.com."
+                        "mx": "amazonaus-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonjpn.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonjpn-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.es",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.ru",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.at",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.com.ar",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.de",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.com.bh",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.com",
+                "records": [
+                    {
+                        "priority": "5",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.id",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonfra.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonfra-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.ae",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.co.jp",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonapc.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonapc-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonpol.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonpol-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazongbr.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazongbr-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.nl",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonswe.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonswe-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazon.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonkorea.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonkorea-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "groups.amazon.com",
+                "records": null
+            },
+            {
+                "domain": "amazon.pl",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonche.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonche-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazon.co.uk",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "amazon-smtp.amazon.com."
+                    }
+                ]
+            },
+            {
+                "domain": "amazonzaf.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "amazonzaf-onmicrosoft-com.mail.protection.outlook.com."
                     }
                 ]
             }
