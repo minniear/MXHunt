@@ -53,13 +53,11 @@ class Checker:
             domains = list(set(r.findall(await response.text())))
 
             for domain in domains:
-                # Check if this is "the initial" domain (tenantname)
                 if domain.lower().endswith(".onmicrosoft.com"):
                     self.tenantnames.append(domain.split(".")[0])
 
             if domains:
                 self.domains.extend(domains)
-                # TODO: Complete this with the MX lookup and adding it to the report. Get results how?
                 tasks = await asyncio.gather(
                     *[self.get_mx(domain) for domain in domains]
                 )
@@ -103,7 +101,7 @@ class Checker:
 
 
 def parse_args():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Hunt for mail servers using MSOL")
     parser.add_argument(
         "-r",
         "--rate",
