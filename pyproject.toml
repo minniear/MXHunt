@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "checks microsoft tenant domains for mail servers"
 authors = ["Luke Minniear <luke.minniear@claconnect.com>"]
 readme = "README.md"
-include = ["./mxhunt/lib", "./mxhunt/src"]
+include = ["./mxhunt/helper", "./mxhunt/src"]
 
 [tool.poetry.dependencies]
 python = "^3.10"

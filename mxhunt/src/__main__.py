@@ -6,7 +6,7 @@ import json
 from rich.console import Console
 from rich.table import Table
 from rich.status import Status
-from mxhunt.lib.throttledclientsession import ThrottledClientSession
+from mxhunt.helper.throttledclientsession import ThrottledClientSession
 
 console = Console()
 
