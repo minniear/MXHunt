@@ -1,0 +1,124 @@
+[
+    {
+        "initial_domain": "7insurance.com",
+        "tenant_domains": [
+            {
+                "domain": "7insurance.com",
+                "records": [
+                    {
+                        "priority": "20",
+                        "mx": "mx2-us1.ppe-hosted.com."
+                    },
+                    {
+                        "priority": "10",
+                        "mx": "mx1-us1.ppe-hosted.com."
+                    }
+                ]
+            },
+            {
+                "domain": "NETORG3059382.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "netorg3059382.mail.protection.outlook.com."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "initial_domain": "CUINSTN.COM",
+        "tenant_domains": [
+            {
+                "domain": "NETORG424892.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "netorg424892.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "cuinstn.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "cuinstn-com.mail.protection.outlook.com."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "initial_domain": "CUSET.ORG",
+        "tenant_domains": [
+            {
+                "domain": "cuset.org",
+                "records": [
+                    {
+                        "priority": "20",
+                        "mx": "mxb-00543e01.gslb.pphosted.com."
+                    },
+                    {
+                        "priority": "10",
+                        "mx": "mxa-00543e01.gslb.pphosted.com."
+                    }
+                ]
+            },
+            {
+                "domain": "NETORG13607108.onmicrosoft.com",
+                "records": null
+            }
+        ]
+    },
+    {
+        "initial_domain": "Y12FCU.ORG",
+        "tenant_domains": [
+            {
+                "domain": "Y12fcu.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "y12fcu.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "Y12fcu.mail.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "y12fcu-mail-onmicrosoft-com.mail.protection.outlook.com."
+                    }
+                ]
+            },
+            {
+                "domain": "y12fcu.org",
+                "records": [
+                    {
+                        "priority": "10",
+                        "mx": "mxb-00543e01.gslb.pphosted.com."
+                    },
+                    {
+                        "priority": "10",
+                        "mx": "mxa-00543e01.gslb.pphosted.com."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "initial_domain": "y12fcugives.org",
+        "tenant_domains": [
+            {
+                "domain": "NETORGFT13538569.onmicrosoft.com",
+                "records": [
+                    {
+                        "priority": "0",
+                        "mx": "netorgft13538569.mail.protection.outlook.com."
+                    }
+                ]
+            }
+        ]
+    }
+]
