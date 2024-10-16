@@ -18,7 +18,11 @@ class Checker:
         self.tenantnames = []
         self.domains = []
         self.report = []
-        self.mx_records = []
+        self._mx_records = []
+
+    @property
+    def mx_records(self):
+        return sorted(set(self._mx_records))
 
     async def msoldomains(self, initial_domain):
         url = "https://autodiscover-s.outlook.com/autodiscover/autodiscover.svc"
@@ -66,9 +70,10 @@ class Checker:
                     {"initial_domain": initial_domain, "tenant_domains": []}
                 )
                 for domain, result in zip(domains, tasks):
-                    self.report[-1]["tenant_domains"].append(
-                        {"domain": domain, "records": result}
-                    )
+                    if result:
+                        self.report[-1]["tenant_domains"].append(
+                            {"domain": domain, "records": result}
+                        )
         return domains
 
     async def get_mx(self, tenant_domain):
@@ -80,7 +85,7 @@ class Checker:
             ) as response:
                 json_response = await response.json()
                 for record in json_response["Answer"]:
-                    self.mx_records.append(record["data"].split()[1])
+                    self._mx_records.append(record["data"].split()[1])
                     records.append(
                         dict(
                             priority=record["data"].split()[0],
@@ -99,6 +104,24 @@ class Checker:
             table.add_row(record[:-1])
         console.print(table)
 
+    def write_output(self, output_base, json_base):
+        if output_base:
+            console.print(
+                f"[bold cyan]Writing mail servers to {output_base}.txt[/bold cyan]"
+            )
+            with open(f"{output_base}.txt", "w") as f:
+                for record in self.mx_records:
+                    if self.mx_records.index(record) == len(self.mx_records) - 1:
+                        f.write(record)
+                    else:
+                        f.write(f"{record}\n")
+        if json_base:
+            console.print(
+                f"[bold cyan]Writing JSON report to {json_base}.json[/bold cyan]"
+            )
+            with open(f"{json_base}.json", "w") as f:
+                json.dump(self.report, f, indent=4)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Hunt for mail servers using MSOL")
@@ -112,7 +135,7 @@ def parse_args():
     parser.add_argument(
         "-q",
         "--quiet",
-        help="Quiet mode, do not output mail servers",
+        help="Quiet mode, do not output mail servers to console",
         action="store_true",
     )
     input = parser.add_argument_group(title="Input Options")
@@ -121,10 +144,14 @@ def parse_args():
     group.add_argument("-f", "--file", help="A file with domains to check")
     output = parser.add_argument_group(title="Output Options")
     output.add_argument(
+        "-j",
+        "--json",
+        help="JSON report file base name (ex: mx_report)",
+    )
+    output.add_argument(
         "-o",
         "--output",
-        help="Report output base name (default: mx_report)",
-        default="mx_report",
+        help="TXT output file base name (ex: mx_servers)",
     )
 
     return parser.parse_args()
@@ -133,9 +160,10 @@ def parse_args():
 async def main():
     args = parse_args()
     rate = args.rate
-    file = args.file
-    domain = args.domain
-    output_base = args.output
+    file = args.file if args.file else None
+    domain = args.domain if args.domain else None
+    output_base = args.output if args.output else None
+    json_base = args.json if args.json else None
     quiet = args.quiet
 
     with Status(f"Checking domain{'' if domain else 's'}") as status:
@@ -157,16 +185,21 @@ async def main():
                 msol_domains = sorted(set(merged_domains))
 
             status.stop()
-            console.print(f"[cyan]Writing report to {output_base}.json[/cyan]")
-            with open(f"{output_base}.json", "w") as f:
-                json.dump(checker.report, f, indent=4)
 
-            if not quiet:
-                checker.print_mx_records()
+            if msol_domains:
+                checker.write_output(output_base, json_base)
+
+                if not quiet:
+                    checker.print_mx_records()
 
 
 def run():
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        console.print("[red]Aborted![/red]")
+    except Exception as e:
+        console.print(f"[red]Error: {e}[/red]")
 
 
 if __name__ == "__main__":
