@@ -265,8 +265,6 @@ async def main():
             status.stop()
 
             if msol_domains:
-                for domain in msol_domains:
-                    print(f"Found tenant domain: {domain}")
                 checker.write_output(output_base, json_base)
 
                 if not quiet:

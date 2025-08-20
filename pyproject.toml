@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mxhunt"
-version = "0.2.0"
+version = "0.2.1"
 description = "checks microsoft tenant domains for mail servers"
 authors = ["Luke Minniear <luke.minniear@claconnect.com>"]
 readme = "README.md"

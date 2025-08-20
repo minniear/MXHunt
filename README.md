@@ -68,10 +68,10 @@ The tool provides multiple types of output:
 Found tenant domain: contoso.com
  MX Record                                   
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- contoso-com.mail.protection.outlook.com     
- contoso.mail.protection.outlook.com         
- mx1.contoso.com                             
- mx2.contoso.com                             
+contoso-com.mail.protection.outlook.com     
+contoso.mail.protection.outlook.com         
+mx1.contoso.com                             
+mx2.contoso.com                             
 ```
 
 ## How It Works
