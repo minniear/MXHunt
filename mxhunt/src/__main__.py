@@ -3,6 +3,7 @@ import re
 import asyncio
 import itertools
 import json
+import socket
 from rich.console import Console
 from rich.table import Table
 from rich.status import Status
@@ -22,7 +23,16 @@ class Checker:
 
     @property
     def mx_records(self):
-        return sorted(set(self._mx_records))
+        # Normalize case and remove duplicates, then remove trailing periods for display
+        normalized_records = []
+        seen = set()
+        for record in self._mx_records:
+            # Normalize to lowercase for comparison and output
+            clean_record = record.rstrip(".").lower()
+            if clean_record not in seen:
+                seen.add(clean_record)
+                normalized_records.append(clean_record)
+        return sorted(normalized_records)
 
     async def msoldomains(self, initial_domain):
         url = "https://autodiscover-s.outlook.com/autodiscover/autodiscover.svc"
@@ -92,16 +102,81 @@ class Checker:
                             mx=record["data"].split()[1],
                         )
                     )
+
+                # Check for Microsoft mail servers if MSOL domains are found
+                await self.check_microsoft_mail_servers(tenant_domain, records)
                 return records
 
         except:
             return None
 
+    async def check_microsoft_mail_servers(self, domain, existing_records):
+        """Check for Microsoft mail server addresses and validate them"""
+        # Generate potential Microsoft mail server addresses for this domain
+        microsoft_servers = self.generate_microsoft_mail_servers(domain)
+
+        for server in microsoft_servers:
+            # Check if this server is already in the existing records
+            if not any(server in record["mx"] for record in existing_records):
+                # Validate if the Microsoft mail server exists
+                if await self.validate_microsoft_mail_server(server):
+                    self.status.update(f"Found valid Microsoft mail server: {server}")
+                    # Add to MX records with a reasonable priority
+                    self._mx_records.append(server)
+                    existing_records.append({"priority": "10", "mx": server})
+
+    def generate_microsoft_mail_servers(self, domain):
+        """Generate potential Microsoft mail server addresses for a domain"""
+        servers = []
+
+        # Remove common TLD and replace dots with dashes for outlook.com format
+        domain_clean = domain.lower()
+        if domain_clean.endswith(".com"):
+            domain_clean = domain_clean[:-4]
+        elif domain_clean.endswith(".org"):
+            domain_clean = domain_clean[:-4]
+        elif domain_clean.endswith(".net"):
+            domain_clean = domain_clean[:-4]
+
+        # Replace dots with dashes for Microsoft format
+        domain_formatted = domain_clean.replace(".", "-")
+
+        # Common Microsoft mail protection formats
+        servers.extend(
+            [
+                f"{domain_formatted}.mail.protection.outlook.com.",
+                f"{domain_formatted}-com.mail.protection.outlook.com.",
+                f"{domain_formatted}-org.mail.protection.outlook.com.",
+                f"{domain_formatted}-net.mail.protection.outlook.com.",
+            ]
+        )
+
+        return servers
+
+    async def validate_microsoft_mail_server(self, server):
+        """Validate if a Microsoft mail server address is valid using local DNS resolution"""
+        try:
+            self.status.update(f"Validating Microsoft mail server: {server}")
+            # Remove trailing dot for DNS query
+            server_query = server.rstrip(".")
+
+            # Use asyncio to run the blocking socket.gethostbyname in a thread
+            loop = asyncio.get_event_loop()
+            try:
+                # This will raise an exception if the hostname doesn't resolve
+                await loop.run_in_executor(None, socket.gethostbyname, server_query)
+                return True
+            except socket.gaierror:
+                # DNS resolution failed
+                return False
+        except Exception:
+            return False
+
     def print_mx_records(self):
-        table = Table(show_edge=False)
+        table = Table(show_edge=False, padding=(0, 0, 0, 0))
         table.add_column(header="MX Record", justify="left", header_style="bold")
-        for record in sorted(set(self.mx_records)):
-            table.add_row(record[:-1])
+        for record in self.mx_records:
+            table.add_row(record)
         console.print(table)
 
     def write_output(self, output_base, json_base):
@@ -174,8 +249,11 @@ async def main():
                 msol_domains = await checker.msoldomains(domain)
 
             else:
-                with open(file) as f:
-                    domains = f.read().splitlines()
+                if file:
+                    with open(file) as f:
+                        domains = f.read().splitlines()
+                else:
+                    raise ValueError("File argument cannot be None")
 
                 tasks = await asyncio.gather(
                     *[checker.msoldomains(domain) for domain in domains]
@@ -187,6 +265,8 @@ async def main():
             status.stop()
 
             if msol_domains:
+                for domain in msol_domains:
+                    print(f"Found tenant domain: {domain}")
                 checker.write_output(output_base, json_base)
 
                 if not quiet:
